@@ -14,6 +14,13 @@ namespace Hrdina_a_drak_2023.Postavy
         public double MaxObrana { get; set; }
 
         private Random nahodnyGenerator = new Random();
+
+        public Drak(double zdravi, double maxUtok)
+        {
+            this.Zdravi = zdravi;
+            this.MaxUtok = maxUtok;
+        }
+
         public double Utok(Hrdina hrdina)
         {
             double utok = nahodnyGenerator.NextDouble() * MaxUtok;
