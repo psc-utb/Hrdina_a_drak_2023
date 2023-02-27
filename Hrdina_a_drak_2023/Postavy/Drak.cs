@@ -6,38 +6,11 @@ using System.Threading.Tasks;
 
 namespace Hrdina_a_drak_2023.Postavy
 {
-    class Drak
+    class Drak : Postava
     {
-        public string Jmeno { get; set; }
-        public double Zdravi { get; set; }
-        public double MaxUtok { get; set; }
-        public double MaxObrana { get; set; }
-
-        private Random nahodnyGenerator = new Random();
-
-        public Drak(double zdravi, double maxUtok)
+        public Drak(double zdravi, double maxUtok) : base(zdravi, maxUtok)
         {
-            this.Zdravi = zdravi;
-            this.MaxUtok = maxUtok;
         }
 
-        public double Utok(Hrdina hrdina)
-        {
-            double utok = nahodnyGenerator.NextDouble() * MaxUtok;
-            hrdina.Zdravi -= utok;
-            return utok;
-        }
-
-        public bool JeZiva()
-        {
-            if (Zdravi > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
     }
 }

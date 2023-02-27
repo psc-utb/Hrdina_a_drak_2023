@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Hrdina_a_drak_2023.Postavy
 {
-    class Hrdina
+    class Hrdina : Postava
     {
-        public string Jmeno { get; set; }
         /*private int zdravi;
         public int Zdravi
         {
@@ -22,18 +21,12 @@ namespace Hrdina_a_drak_2023.Postavy
                 zdravi = value;
             }
         }*/
-        public double Zdravi { get; set; }
-        public double MaxUtok { get; set; }
-        public double MaxObrana { get; set; }
 
         public Mec Mec { get; set; }
 
-        private Random nahodnyGenerator = new Random();
-
-        public Hrdina(double zdravi, double maxUtok)
+        
+        public Hrdina(double zdravi, double maxUtok) : base(zdravi, maxUtok)
         {
-            this.Zdravi = zdravi;
-            this.MaxUtok = maxUtok;
         }
 
         /// <summary>
@@ -42,36 +35,24 @@ namespace Hrdina_a_drak_2023.Postavy
         /// <param name="zdravi">zdraví hrdiny</param>
         /// <param name="mec">meč hrdiny</param>
         /// <exception cref="Exception">Dojde k ní, když meč nebude nastavený</exception>
-        public Hrdina(double zdravi, Mec mec)
+        public Hrdina(double zdravi, Mec mec, double maxUtok) : base(zdravi, maxUtok)
         {
-            this.Zdravi = zdravi;
             if (mec == null)
                 throw new Exception("Meč nemůže být null!");
             this.Mec = mec;
         }
 
-        public double Utok(Drak drak)
+        public double Utok(Postava postava)
         {
             double utok;
             if (Mec != null)
                 utok = nahodnyGenerator.NextDouble() * Mec.MaxUtok;
             else
-                utok = nahodnyGenerator.NextDouble() * MaxUtok;
+                return base.Utok(postava);
 
-            drak.Zdravi -= utok;
+            postava.Zdravi -= utok;
             return utok;
         }
 
-        public bool JeZiva()
-        {
-            if (Zdravi > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
     }
 }
