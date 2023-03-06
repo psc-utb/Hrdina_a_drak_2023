@@ -21,7 +21,26 @@ namespace Hrdina_a_drak_2023.Postavy
             this.MaxUtok = maxUtok;
         }
 
-        public double Utok(Postava postava)
+        public Postava(double zdravi, double maxUtok, string jmeno) : this(zdravi, maxUtok)
+        {
+            this.Jmeno = jmeno;
+        }
+
+        public Postava VyberOponenta(List<Postava> postavy)
+        {
+            foreach(var postava in postavy)
+            {
+                if (postava != null && postava != this
+                    && postava.JeZiva())
+                {
+                    return postava;
+                }
+            }
+
+            return null;
+        }
+
+        public virtual double Utok(Postava postava)
         {
             double utok = nahodnyGenerator.NextDouble() * MaxUtok;
             postava.Zdravi -= utok;

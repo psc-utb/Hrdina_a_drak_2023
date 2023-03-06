@@ -62,12 +62,21 @@ namespace Hrdina_a_drak_2023
 
             Mec mec = new Mec("Excalibur", 25);
             mec = new Mec("obyčejný meč", 20);
-            Hrdina hrdina = new Hrdina(100, mec, 10);
-            Drak drak = new Drak(120, 15);
+            Hrdina hrdina = new Hrdina(100, mec, 10, "Geralt");
+            Hrdina hrdina2 = new Hrdina(100, mec, 10, "Bilbo");
+            Hrdina hrdina3 = new Hrdina(100, mec, 10, "Zabiják");
+            Drak drak = new Drak(120, 15, "Šmak");
+            Drak drak2 = new Drak(120, 15, "Alduin");
+            Vlk vlk = new Vlk(50, 5, "Wolfie");
+
 
             List<Postava> postavy = new List<Postava>();
-            postavy.Add(hrdina);
+            postavy.Add(hrdina2);
             postavy.Add(drak);
+            postavy.Add(hrdina);
+            postavy.Add(drak2);
+            postavy.Add(hrdina3);
+            postavy.Add(vlk);
 
             bool postavyZiji = true;
             while (postavyZiji)
@@ -78,25 +87,20 @@ namespace Hrdina_a_drak_2023
                     if (postava.JeZiva())
                     {
                         double utokPostavy;
-                        Postava oponent;
-                        if (postava is Hrdina hrd)
+                        Postava oponent = postava.VyberOponenta(postavy);
+                        if (oponent != null)
                         {
-                            oponent = postavy[1];
-                            utokPostavy = hrd.Utok(postavy[1]);
-                        }
-                        else
-                        {
-                            oponent = postavy[0];
-                            utokPostavy = postava.Utok(postavy[0]);
-                        }
+                            utokPostavy = postava.Utok(oponent);
 
-                        string textKvypisu = $"Postava zaútočila hodnotou: {utokPostavy}. Oponent má {oponent.Zdravi} zdraví." + Environment.NewLine;
-                        Console.WriteLine(textKvypisu);
+                            string textKvypisu = $"{postava.Jmeno} zaútočil hodnotou: {utokPostavy}. {oponent.Jmeno} má {oponent.Zdravi} zdraví." + Environment.NewLine;
+                            Console.WriteLine(textKvypisu);
+                        }
                     }
                 }
 
+                //zjisteni poctu zivych postav
                 int pocetZivychPostav = 0;
-                for(int i = 0; i < postavy.Count; ++i)
+                for (int i = 0; i < postavy.Count; ++i)
                 {
                     if (postavy[i].JeZiva())
                         pocetZivychPostav++;

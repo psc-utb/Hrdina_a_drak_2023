@@ -35,14 +35,14 @@ namespace Hrdina_a_drak_2023.Postavy
         /// <param name="zdravi">zdraví hrdiny</param>
         /// <param name="mec">meč hrdiny</param>
         /// <exception cref="Exception">Dojde k ní, když meč nebude nastavený</exception>
-        public Hrdina(double zdravi, Mec mec, double maxUtok) : base(zdravi, maxUtok)
+        public Hrdina(double zdravi, Mec mec, double maxUtok, string jmeno) : base(zdravi, maxUtok, jmeno)
         {
             if (mec == null)
                 throw new Exception("Meč nemůže být null!");
             this.Mec = mec;
         }
 
-        public double Utok(Postava postava)
+        public override double Utok(Postava postava)
         {
             double utok;
             if (Mec != null)

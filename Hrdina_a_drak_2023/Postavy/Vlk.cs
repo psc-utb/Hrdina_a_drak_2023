@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Hrdina_a_drak_2023.Postavy
 {
-    class Drak : Postava
+    class Vlk : Postava
     {
-        public Drak(double zdravi, double maxUtok, string jmeno) : base(zdravi, maxUtok, jmeno)
+        public Vlk(double zdravi, double maxUtok, string jmeno) : base(zdravi, maxUtok, jmeno)
         {
         }
-
     }
 }
