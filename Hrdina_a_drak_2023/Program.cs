@@ -1,4 +1,5 @@
-﻿using Hrdina_a_drak_2023.Postavy;
+﻿using Hrdina_a_drak_2023.Nabytek;
+using Hrdina_a_drak_2023.Postavy;
 using Hrdina_a_drak_2023.Veci;
 using System;
 using System.Collections.Generic;
@@ -78,6 +79,10 @@ namespace Hrdina_a_drak_2023
             postavy.Add(hrdina3);
             postavy.Add(vlk);
 
+            //postavy.Sort();
+
+            Bedna bedna = new Bedna(100);
+
             bool postavyZiji = true;
             while (postavyZiji)
             {
@@ -92,8 +97,23 @@ namespace Hrdina_a_drak_2023
                         {
                             utokPostavy = postava.Utok(oponent);
 
-                            string textKvypisu = $"{postava.Jmeno} zaútočil hodnotou: {utokPostavy}. {oponent.Jmeno} má {oponent.Zdravi} zdraví." + Environment.NewLine;
+                            string textKvypisu = $"{postava.Jmeno} zaútočil hodnotou: {utokPostavy}. {oponent.Jmeno} má {oponent.Zdravi} zdraví.";
                             Console.WriteLine(textKvypisu);
+
+                            //utok na bednu
+                            if(bedna.JeRozbita() == false)
+                            {
+                                postava.Utok(bedna);
+                                Console.WriteLine($"{postava.Jmeno} zaútočil na bednu.");
+
+                                if (bedna.JeRozbita())
+                                {
+                                    postava.Zdravi += 20;
+                                    Console.WriteLine($"{postava.Jmeno} rozbil bednu!");
+                                }
+                            }
+
+                            Console.WriteLine(Environment.NewLine);
                         }
                     }
                 }

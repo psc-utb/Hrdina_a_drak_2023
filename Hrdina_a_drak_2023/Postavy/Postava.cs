@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hrdina_a_drak_2023.Rozhrani;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hrdina_a_drak_2023.Postavy
 {
-    class Postava
+    class Postava : IZasazitelny
     {
         public string Jmeno { get; set; }
         public double Zdravi { get; set; }
@@ -40,10 +41,10 @@ namespace Hrdina_a_drak_2023.Postavy
             return null;
         }
 
-        public virtual double Utok(Postava postava)
+        public virtual double Utok(IZasazitelny zasazitelnyObjekt)
         {
             double utok = nahodnyGenerator.NextDouble() * MaxUtok;
-            postava.Zdravi -= utok;
+            zasazitelnyObjekt.Zdravi -= utok;
             return utok;
         }
 

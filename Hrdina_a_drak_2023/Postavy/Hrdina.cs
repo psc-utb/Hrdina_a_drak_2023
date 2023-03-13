@@ -1,4 +1,5 @@
-﻿using Hrdina_a_drak_2023.Veci;
+﻿using Hrdina_a_drak_2023.Rozhrani;
+using Hrdina_a_drak_2023.Veci;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,15 +43,15 @@ namespace Hrdina_a_drak_2023.Postavy
             this.Mec = mec;
         }
 
-        public override double Utok(Postava postava)
+        public override double Utok(IZasazitelny zasazitelnyObjekt)
         {
             double utok;
             if (Mec != null)
                 utok = nahodnyGenerator.NextDouble() * Mec.MaxUtok;
             else
-                return base.Utok(postava);
+                return base.Utok(zasazitelnyObjekt);
 
-            postava.Zdravi -= utok;
+            zasazitelnyObjekt.Zdravi -= utok;
             return utok;
         }
 
