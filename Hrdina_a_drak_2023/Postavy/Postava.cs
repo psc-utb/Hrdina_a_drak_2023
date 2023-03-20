@@ -1,4 +1,5 @@
-﻿using Hrdina_a_drak_2023.Rozhrani;
+﻿using Hrdina_a_drak_2023.Nahoda;
+using Hrdina_a_drak_2023.Rozhrani;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Hrdina_a_drak_2023.Postavy
         public double MaxUtok { get; set; }
         public double MaxObrana { get; set; }
 
-        protected Random nahodnyGenerator = new Random();
+        protected Kostka nahodnyGenerator = Kostka.Instance;
 
         public Postava(double zdravi, double maxUtok)
         {
