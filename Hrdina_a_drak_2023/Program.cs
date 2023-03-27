@@ -1,5 +1,7 @@
 ﻿using Hrdina_a_drak_2023.Nabytek;
+using Hrdina_a_drak_2023.Nahoda;
 using Hrdina_a_drak_2023.Postavy;
+using Hrdina_a_drak_2023.Rozhrani;
 using Hrdina_a_drak_2023.Veci;
 using System;
 using System.Collections.Generic;
@@ -63,12 +65,14 @@ namespace Hrdina_a_drak_2023
 
             Mec mec = new Mec("Excalibur", 25);
             mec = new Mec("obyčejný meč", 20);
-            Hrdina hrdina = new Hrdina(100, mec, 10, "Geralt");
-            Hrdina hrdina2 = new Hrdina(100, mec, 10, "Bilbo");
-            Hrdina hrdina3 = new Hrdina(100, mec, 10, "Zabiják");
-            Drak drak = new Drak(120, 15, "Šmak");
-            Drak drak2 = new Drak(120, 15, "Alduin");
-            Vlk vlk = new Vlk(50, 5, "Wolfie");
+
+            INahodny nahodnyGenerator = Kostka.Instance;
+            Hrdina hrdina = new Hrdina(100, mec, 10, "Geralt", nahodnyGenerator);
+            Hrdina hrdina2 = new Hrdina(100, mec, 10, "Bilbo", nahodnyGenerator);
+            Hrdina hrdina3 = new Hrdina(100, mec, 10, "Zabiják", nahodnyGenerator);
+            Drak drak = new Drak(120, 15, "Šmak", nahodnyGenerator);
+            Drak drak2 = new Drak(120, 15, "Alduin", nahodnyGenerator);
+            Vlk vlk = new Vlk(50, 5, "Wolfie", nahodnyGenerator);
 
 
             List<Postava> postavy = new List<Postava>();

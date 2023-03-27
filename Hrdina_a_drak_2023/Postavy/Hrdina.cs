@@ -26,7 +26,7 @@ namespace Hrdina_a_drak_2023.Postavy
         public Mec Mec { get; set; }
 
         
-        public Hrdina(double zdravi, double maxUtok) : base(zdravi, maxUtok)
+        public Hrdina(double zdravi, double maxUtok, INahodny nahodny) : base(zdravi, maxUtok, nahodny)
         {
         }
 
@@ -36,7 +36,7 @@ namespace Hrdina_a_drak_2023.Postavy
         /// <param name="zdravi">zdraví hrdiny</param>
         /// <param name="mec">meč hrdiny</param>
         /// <exception cref="Exception">Dojde k ní, když meč nebude nastavený</exception>
-        public Hrdina(double zdravi, Mec mec, double maxUtok, string jmeno) : base(zdravi, maxUtok, jmeno)
+        public Hrdina(double zdravi, Mec mec, double maxUtok, string jmeno, INahodny nahodny) : base(zdravi, maxUtok, jmeno, nahodny)
         {
             if (mec == null)
                 throw new Exception("Meč nemůže být null!");

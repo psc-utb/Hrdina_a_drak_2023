@@ -15,15 +15,16 @@ namespace Hrdina_a_drak_2023.Postavy
         public double MaxUtok { get; set; }
         public double MaxObrana { get; set; }
 
-        protected Kostka nahodnyGenerator = Kostka.Instance;
+        protected INahodny nahodnyGenerator;
 
-        public Postava(double zdravi, double maxUtok)
+        public Postava(double zdravi, double maxUtok, INahodny nahodny)
         {
             this.Zdravi = zdravi;
             this.MaxUtok = maxUtok;
+            this.nahodnyGenerator = nahodny;
         }
 
-        public Postava(double zdravi, double maxUtok, string jmeno) : this(zdravi, maxUtok)
+        public Postava(double zdravi, double maxUtok, string jmeno, INahodny nahodny) : this(zdravi, maxUtok, nahodny)
         {
             this.Jmeno = jmeno;
         }
