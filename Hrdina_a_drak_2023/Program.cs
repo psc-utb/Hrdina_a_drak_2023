@@ -75,6 +75,8 @@ namespace Hrdina_a_drak_2023
             Vlk vlk = new Vlk(50, 5, "Wolfie", nahodnyGenerator);
 
 
+
+            //List postav -> dynamicke pole: je mozne pridavat, vkladat, mazat data a pristupovat na konkretni pozici pole (skrz index).
             List<Postava> postavy = new List<Postava>();
             postavy.Add(hrdina2);
             postavy.Add(drak);
@@ -82,8 +84,35 @@ namespace Hrdina_a_drak_2023
             postavy.Add(drak2);
             postavy.Add(hrdina3);
             postavy.Add(vlk);
+            //postavy.Insert(2, hrdina);
+            //postavy.RemoveAt(2);
+
+            //Dictionary s klicem typu string a postavami: je mozne pridavat prvky jen s klicem, rychle vyhledani prvku pomoci klice
+            Dictionary<string, Postava> dictionaryPostav = new Dictionary<string, Postava>();
+            //pridani hrdiny do Dictionary na pozici klice "aaa"
+            dictionaryPostav["aaa"] = hrdina;
+            //vyber postavy na pozici klice "aaa"
+            Postava postavaZDictionary = dictionaryPostav["aaa"];
+            //vypis vybrane postavy z dictionary
+            Console.WriteLine(postavaZDictionary.Jmeno);
+
+            dictionaryPostav["aaa"] = hrdina3;
+            Console.WriteLine(dictionaryPostav["aaa"].Jmeno);
+
+            dictionaryPostav.Add("bbb", drak2);
+
+            dictionaryPostav[hrdina2.Jmeno] = hrdina2;
+            Console.WriteLine(dictionaryPostav[hrdina2.Jmeno].Jmeno);
+
+            Dictionary<int, Postava> dictionaryInt = new Dictionary<int, Postava>();
+            dictionaryInt[100] = hrdina;
+            dictionaryInt[541564] = drak;
+
+
 
             //postavy.Sort();
+
+
 
             Bedna bedna = new Bedna(100);
 
