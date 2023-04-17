@@ -87,6 +87,12 @@ namespace Hrdina_a_drak_2023
             //postavy.Insert(2, hrdina);
             //postavy.RemoveAt(2);
 
+            foreach(Postava postava in postavy)
+            {
+                postava.VyberNovehoOponenta += VypisVyberuOponenta;
+            }
+
+
             //Dictionary s klicem typu string a postavami: je mozne pridavat prvky jen s klicem, rychle vyhledani prvku pomoci klice
             Dictionary<string, Postava> dictionaryPostav = new Dictionary<string, Postava>();
             //pridani hrdiny do Dictionary na pozici klice "aaa"
@@ -164,6 +170,11 @@ namespace Hrdina_a_drak_2023
                 }
             }
 
+        }
+
+        static void VypisVyberuOponenta(Postava postava, Postava oponent)
+        {
+            Console.WriteLine($"{postava.Jmeno} si vybral nového oponenta: {oponent.Jmeno}");
         }
     }
 }

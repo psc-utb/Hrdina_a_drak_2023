@@ -17,6 +17,9 @@ namespace Hrdina_a_drak_2023.Postavy
 
         protected INahodny nahodnyGenerator;
 
+        private Postava oponentPredchozi = null;
+        public event Action<Postava, Postava> VyberNovehoOponenta;
+
         public Postava(double zdravi, double maxUtok, INahodny nahodny)
         {
             this.Zdravi = zdravi;
@@ -36,6 +39,12 @@ namespace Hrdina_a_drak_2023.Postavy
                 if (postava != null && postava != this
                     && postava.JeZiva())
                 {
+                    if (postava != oponentPredchozi)
+                    {
+                        oponentPredchozi = postava;
+                        if(VyberNovehoOponenta != null)
+                            VyberNovehoOponenta(this, postava);
+                    }
                     return postava;
                 }
             }
@@ -47,6 +56,7 @@ namespace Hrdina_a_drak_2023.Postavy
         {
             double utok = nahodnyGenerator.NextDouble() * MaxUtok;
             zasazitelnyObjekt.Zdravi -= utok;
+
             return utok;
         }
 
