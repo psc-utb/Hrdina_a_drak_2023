@@ -32,12 +32,14 @@ namespace Hrdina_a_drak_2023.Postavy
             this.Jmeno = jmeno;
         }
 
-        public Postava VyberOponenta(List<Postava> postavy)
+        public Postava VyberOponenta(List<Postava> postavy, Predicate<Postava> kontrolaOponenta)
         {
             foreach(var postava in postavy)
             {
+                bool specialniKontrolaOponenta = kontrolaOponenta != null ? kontrolaOponenta(postava) : true;
                 if (postava != null && postava != this
-                    && postava.JeZiva())
+                    && postava.JeZiva()
+                    && specialniKontrolaOponenta)
                 {
                     if (postava != oponentPredchozi)
                     {
@@ -50,6 +52,11 @@ namespace Hrdina_a_drak_2023.Postavy
             }
 
             return null;
+        }
+
+        public Postava VyberOponenta(List<Postava> postavy)
+        {
+            return VyberOponenta(postavy, null);
         }
 
         public virtual double Utok(IZasazitelny zasazitelnyObjekt)

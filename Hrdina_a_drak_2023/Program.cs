@@ -1,4 +1,5 @@
-﻿using Hrdina_a_drak_2023.Nabytek;
+﻿using Hrdina_a_drak_2023.Bojiste;
+using Hrdina_a_drak_2023.Nabytek;
 using Hrdina_a_drak_2023.Nahoda;
 using Hrdina_a_drak_2023.Postavy;
 using Hrdina_a_drak_2023.Rozhrani;
@@ -6,12 +7,14 @@ using Hrdina_a_drak_2023.Veci;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hrdina_a_drak_2023
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             //Hrdina hrdina = new Hrdina();
             //hrdina.Zdravi = 2000;
@@ -87,6 +90,16 @@ namespace Hrdina_a_drak_2023
             //postavy.Insert(2, hrdina);
             //postavy.RemoveAt(2);
 
+            //lambda vyrazy
+            double prumernyUtok = postavy.Average(pos => pos.MaxUtok);
+            Console.WriteLine($"Průměrný útok postav je: {prumernyUtok} - polovina je: {prumernyUtok / 2}");
+
+            List<Postava> postavyPrumernyUtok = postavy.FindAll(pos => pos.MaxUtok >= (prumernyUtok / 2));
+
+            postavyPrumernyUtok.ForEach(pos => Console.WriteLine($"Nadprůměrná postava: {pos.Jmeno} s útokem: {pos.MaxUtok}"));
+
+
+            //napojeni eventu
             foreach(Postava postava in postavy)
             {
                 postava.VyberNovehoOponenta += VypisVyberuOponenta;
@@ -119,57 +132,29 @@ namespace Hrdina_a_drak_2023
             //postavy.Sort();
 
 
+            //Arena arena = new Arena(postavy);
+            //arena.Boj();
 
-            Bedna bedna = new Bedna(100);
+            List<Postava> postavyArena1 = new List<Postava>();
+            postavyArena1.Add(hrdina);
+            postavyArena1.Add(hrdina2);
+            postavyArena1.Add(hrdina3);
 
-            bool postavyZiji = true;
-            while (postavyZiji)
-            {
-                for (int i = 0; i < postavy.Count; ++i)
-                {
-                    Postava postava = postavy[i];
-                    if (postava.JeZiva())
-                    {
-                        double utokPostavy;
-                        Postava oponent = postava.VyberOponenta(postavy);
-                        if (oponent != null)
-                        {
-                            utokPostavy = postava.Utok(oponent);
 
-                            string textKvypisu = $"{postava.Jmeno} zaútočil hodnotou: {utokPostavy}. {oponent.Jmeno} má {oponent.Zdravi} zdraví.";
-                            Console.WriteLine(textKvypisu);
+            List<Postava> postavyArena2 = new List<Postava>();
+            postavyArena2.Add(drak);
+            postavyArena2.Add(drak2);
+            postavyArena2.Add(vlk);
 
-                            //utok na bednu
-                            if(bedna.JeRozbita() == false)
-                            {
-                                postava.Utok(bedna);
-                                Console.WriteLine($"{postava.Jmeno} zaútočil na bednu.");
 
-                                if (bedna.JeRozbita())
-                                {
-                                    postava.Zdravi += 20;
-                                    Console.WriteLine($"{postava.Jmeno} rozbil bednu!");
-                                }
-                            }
+            Arena arenaAsync1 = new Arena(postavyArena1);
+            Arena arenaAsync2 = new Arena(postavyArena2);
 
-                            Console.WriteLine(Environment.NewLine);
-                        }
-                    }
-                }
+            await arenaAsync1.BojAsync();
+            await arenaAsync2.BojAsync();
 
-                //zjisteni poctu zivych postav
-                int pocetZivychPostav = 0;
-                for (int i = 0; i < postavy.Count; ++i)
-                {
-                    if (postavy[i].JeZiva())
-                        pocetZivychPostav++;
-                }
-                if (pocetZivychPostav < 2)
-                {
-                    postavyZiji = false;
-                }
-            }
 
+            Console.ReadKey(true);
         }
 
         static void VypisVyberuOponenta(Postava postava, Postava oponent)
